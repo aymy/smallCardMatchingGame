@@ -108,24 +108,55 @@ int oneGame(int numPlayers, int dim){
 	for (current_player=0; i<dim*dim && current_player<numPlayers; current_player=Players.at(current_player).nextPlayer){	
 		cout<<"Player "<<current_player<<" play."<<endl;
 		cout<<"Please enter the row and the column number you want to pick for the first card:"<<endl;
-		cin>>x1>>y1;
-		while(table[x1][y1].show!=-1){	
-			cout<<"Please enter another pair with unknown number:"<<endl;
-			cin>>x1>>y1;
-		}
-		table[x1][y1].faceUp=1;
-		table[x1][y1].show=table[x1][y1].value;
-		print(table, dim);
-		cout<<"Please enter the row and the column number you want to pick for the second card:"<<endl;
+		
+
+		while(cin>>x1>>y1,x1>=dim || y1>=dim)
+		  {
+		    cout<<"Too much !!"<<endl;
+		    sleep(1);
+		    cout<<"\033[3A";
+		    cout<<"         \n"<<"        \n"<<"            \n";
+		    cout<<"\033[3A";
+		    cin.clear();
+		  }
+
+
+	    while(table[x1][y1].show!=-1){	
+	      cout<<"Please enter another pair with unknown number:"<<endl;
+	      cin>>x1>>y1;
+	    }
+	 
+
+	table[x1][y1].faceUp=1;
+	table[x1][y1].show=table[x1][y1].value;
+	print(table, dim);
+	cout<<"Please enter the row and the column number you want to pick for the second card:"<<endl;
+	
+	while(cin>>x2>>y2,x2>=dim || y2>=dim)
+		  {
+		    cout<<"Too much !!"<<endl;
+		    sleep(1);
+		    cout<<"\033[3A";
+		    cout<<"         \n"<<"        \n"<<"            \n";
+		    cout<<"\033[3A";
+		    cin.clear();
+		  }
+
+
+
+
+	while (x1==x2 && y1==y2){	
+		cout<<"Please enter a new pair:"<<endl;
 		cin>>x2>>y2;
-		while (x1==x2 && y1==y2){	
-			cout<<"Please enter a new pair:"<<endl;
-			cin>>x2>>y2;
-		}
-		while(table[x2][y2].show!=-1){
-			cout<<"Please enter another pair with unknown number:"<<endl;
-			cin>>x2>>y2;
-		}
+	}
+	while(table[x2][y2].show!=-1){
+		cout<<"Please enter another pair with unknown number:"<<endl;
+		cin>>x2>>y2;
+	}
+
+
+
+
 		if (table[x2][y2].value==table[x1][y1].value){
 			table[x2][y2].faceUp=1;
 			table[x2][y2].show=table[x2][y2].value;
@@ -158,10 +189,13 @@ int main(){
 	int numPlayers;
 	cout<<"How many players in total?"<<endl;
 	cin>>numPlayers;
-	vector<int> scoreboard(numPlayers);
+	vector<int> scoreboard(numPlayers,0);
+
+	/*
 	for (int i=0; i<numPlayers; i+=1){
 		scoreboard.at(i)=0;
 	}
+	*/
 	while(true){
 		
 		cout<<"What dimension do you want?"<<endl;
